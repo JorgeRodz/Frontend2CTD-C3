@@ -82,19 +82,19 @@ menuItems.forEach( (item) => {
 
 /* ----------------------------- Editando clases ---------------------------- */
 // vamos probando uno a uno los métodos
-console.log(sitio.classList)
-console.log(sitio.classList.contains("dark"))
+// console.log(sitio.classList)
+// console.log(sitio.classList.contains("dark"))
 
-console.log(sitio.classList)
-console.log(sitio.classList.add("dark"))
+// console.log(sitio.classList)
+// console.log(sitio.classList.add("dark"))
 
-console.log(sitio.classList)
-console.log(sitio.classList.remove("dark"))
+// console.log(sitio.classList)
+// console.log(sitio.classList.remove("dark"))
 
-console.log(sitio.classList)
-console.log(sitio.classList.toggle("dark"))
-console.log(sitio.classList.toggle("dark"))
-console.log(sitio.classList.toggle("dark"))
+// console.log(sitio.classList)
+// console.log(sitio.classList.toggle("dark"))
+// console.log(sitio.classList.toggle("dark"))
+// console.log(sitio.classList.toggle("dark"))
 
 
 
@@ -107,7 +107,14 @@ console.log(sitio.classList.toggle("dark"))
 // 2- Debemos preguntarle al usuario mediante un confirm si desea usar el modo oscuro.
 // 3- Si el usuario confirma debemos aplicar la clase "dark" al "sitio", si cancela debe quedar en modo claro.
 // 4- A su vez, si está en modo onsecuritypolicyviolation, el texto del boton debe decir "Cambiar a modo claro 🌞". De lo contrario, si está en modo claro debeb decir "Cambiar a modo oscuro 🌛"
-function elegirTema() {
+const changeThemeBtn = document.querySelector("div.tema > button")
+changeThemeBtn.addEventListener('click', elegirTema)
 
+function elegirTema() {
+    let currentTheme = sitio.classList.value
+
+    let valor = currentTheme === 'dark'? confirm('Desea usar el ligth mode 🌞?') : confirm('Desea usar el dark mode 🌚?')
+
+    if (valor) sitio.classList.toggle("dark")
 }
-elegirTema();
+// elegirTema();
