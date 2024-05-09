@@ -5,7 +5,7 @@ const listadoNoticias = [
         titulo: "¡SOMOS CAMPEONES DEL MUNDO!",
         epigrafe: "Argentina le ganó por penales a Francia y la Copa la levanta Messi, el mejor. ¡Vamos!",
         foto: "./img/futbol.jpeg"
-    }, 
+    },
     {
         titulo: "Instituciones ejemplares: por qué tres escuelas de América Latina quedaron entre las 15 mejores del mundo",
         epigrafe: "Son dos establecimientos brasileños y uno colombiano.",
@@ -42,53 +42,52 @@ const listadoNoticias = [
 
 
 /* ---------------------- PRACTICANDO CREACION DE NODOS --------------------- */
-// 1- Ahora vamos a ir al HTML y eliminar los 3 Article que se encuentran en el main.
-// 2- Comentamos la parte de este código de "Practicando atributos"
-// 3- Vamos a crear de a uno e insertarlos en el HTML usando un bucle👇
-const main = document.querySelector("main") //
-// const main = document.querySelector(".noticias") // es lo mismo de arriba pero buscando por la clase
-main.innerHTML = "" // Esto es para o eliminar todo contenido previo de la etiqueta
+// // 1- Ahora vamos a ir al HTML y eliminar los 3 Article que se encuentran en el main.
+// // 2- Comentamos la parte de este código de "Practicando atributos"
+// // 3- Vamos a crear de a uno e insertarlos en el HTML usando un bucle👇
+// const main = document.querySelector("main") //
+// // const main = document.querySelector(".noticias") // es lo mismo de arriba pero buscando por la clase
+// main.innerHTML = "" // Esto es para o eliminar todo contenido previo de la etiqueta
 
-// vamos a iterar sobre el array de noticias 
-listadoNoticias.forEach( noticia => {
-    // Creamos los nuevos elementos en el DOM
-    const article = document.createElement("article")
-    const h2 = document.createElement("h2")
-    const img = document.createElement("img")
-    const p = document.createElement("p")
+// // vamos a iterar sobre el array de noticias
+// listadoNoticias.forEach( noticia => {
+//     // Creamos los nuevos elementos en el DOM
+//     const article = document.createElement("article")
+//     const h2 = document.createElement("h2")
+//     const img = document.createElement("img")
+//     const p = document.createElement("p")
 
-    // Agregamos el contenido a cada etiqueta etiqueta
-    h2.textContent = noticia.titulo
-    img.setAttribute("src", noticia.foto)
-    img.setAttribute("alt", `imagen de ${noticia.titulo}`)
-    p.innerText = noticia.epigrafe
+//     // Agregamos el contenido a cada etiqueta etiqueta
+//     h2.textContent = noticia.titulo
+//     img.setAttribute("src", noticia.foto)
+//     img.setAttribute("alt", `imagen de ${noticia.titulo}`)
+//     p.innerText = noticia.epigrafe
 
-    // Ahora nos toca insertar las etiquetas con su contenido a un elemento contendeor con appendChild()
-    article.appendChild(h2)
-    article.appendChild(img)
-    article.appendChild(p)
+//     // Ahora nos toca insertar las etiquetas con su contenido a un elemento contendeor con appendChild()
+//     article.appendChild(h2)
+//     article.appendChild(img)
+//     article.appendChild(p)
 
-    // Finalmente lo inserto a un elemento del dom, que es la etiqueta main
-    main.appendChild(article)
-})
-
-
-const ultimoMomento = {
-    titulo: "A nueve años de la muerte de Gustavo Cerati",
-    epigrafe: "actitud rockera, sensibilidad pop y el sonido universal de un artista único/nEl paso del tiempo agiganta la relevancia de la obra del músico argentino./nSu legado ilumina el panorama de la escena actual con indiscutible vigencia.",
-    foto: "https://www.clarin.com/img/2021/03/30/JB6p137T2_360x240__1.jpg"
-}
+//     // Finalmente lo inserto a un elemento del dom, que es la etiqueta main
+//     main.appendChild(article)
+// })
 
 
-// Mode de insercion con template literals
-main.innerHTML += `
-    <article >
-        <h2>${ultimoMomento.titulo}</h2>
-        <img src="${ultimoMomento.foto}" alt="Imagen ${ultimoMomento.titulo}">
-        <p>${ultimoMomento.epigrafe}</p>
-    </article>
-`
+// const ultimoMomento = {
+//     titulo: "A nueve años de la muerte de Gustavo Cerati",
+//     epigrafe: "actitud rockera, sensibilidad pop y el sonido universal de un artista único/nEl paso del tiempo agiganta la relevancia de la obra del músico argentino./nSu legado ilumina el panorama de la escena actual con indiscutible vigencia.",
+//     foto: "https://www.clarin.com/img/2021/03/30/JB6p137T2_360x240__1.jpg"
+// }
 
+
+// // Mode de insercion con template literals
+// main.innerHTML += `
+//     <article >
+//         <h2>${ultimoMomento.titulo}</h2>
+//         <img src="${ultimoMomento.foto}" alt="Imagen ${ultimoMomento.titulo}">
+//         <p>${ultimoMomento.epigrafe}</p>
+//     </article>
+// `
 
 
 /* -------------------------------------------------------------------------- */
@@ -103,8 +102,19 @@ main.innerHTML += `
 // document.querySelector('body').innerHTML += `<h1>Nuevo Título</h1>`;
 
 function renderizandoElementos() {
-// desarrollar la consigna aquí
+    const main = document.querySelector("main");
+    main.innerHTML = ""; // Limpiamos el contenido previo
 
-
+    // Iteramos sobre el listado de noticias usando Plantillas Literales
+    listadoNoticias.forEach(noticia => {
+        main.innerHTML += `
+            <article>
+                <h2>${noticia.titulo}</h2>
+                <img src="${noticia.foto}" alt="Imagen de ${noticia.titulo}">
+                <p>${noticia.epigrafe}</p>
+            </article>
+        `;
+    });
 }
+
 renderizandoElementos();
