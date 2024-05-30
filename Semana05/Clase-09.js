@@ -34,15 +34,15 @@ const terminosError = document.querySelector('#terminosError');
 /*                   [1] FUNCION: mostrar errores al usuario                  */
 /* -------------------------------------------------------------------------- */
 function mostrarErrores() {
-    estadoErroresOK.email 
+    estadoErroresOK.email
     ? emailError.classList.remove("visible")
     : emailError.classList.add("visible")
 
-    estadoErroresOK.password 
+    estadoErroresOK.password
     ? passwordError.classList.remove("visible")
     : passwordError.classList.add("visible")
-    
-    estadoErroresOK.rol 
+
+    estadoErroresOK.rol
     ? rolError.classList.remove("visible")
     : rolError.classList.add("visible")
 
@@ -59,14 +59,14 @@ function mostrarErrores() {
 /*               [2] FUNCION: actulizamos los estados de la app               */
 /* -------------------------------------------------------------------------- */
 // 👇 por cada cambio en el formulario actualizamos
-formulario.addEventListener("change", () => { 
+formulario.addEventListener("change", () => {
     // console.log("Hay un cambio");
 
     // 👇 actualizo el estado de la pantalla con los datos
     estadoUsuario.email = inputEmail.value.trim()
     estadoUsuario.password= inputPassword.value.trim()
     estadoUsuario.rol = inputRol.value
-    estadoUsuario.terminos = inputTerminos.checked 
+    estadoUsuario.terminos = inputTerminos.checked
     console.log(estadoUsuario);
 
     // Validar los datos de los inputs para modificar el objetoErroresOK
@@ -74,7 +74,7 @@ formulario.addEventListener("change", () => {
     estadoErroresOK.password = validarPassword(estadoUsuario.password)
     estadoErroresOK.rol = validarRol(estadoUsuario.rol)
     estadoErroresOK.terminos = validarTerminos(estadoUsuario.terminos)
-    
+
     mostrarErrores()
 })
 
@@ -89,16 +89,16 @@ function validarEmail(email) {
     // if (
     //     email.includes("@") &&
     //     email.includes(".") &&
-    //     !email.includes(" ")    
+    //     !email.includes(" ")
     // ) {
-    //    resultado = true 
+    //    resultado = true
     // }
 
     let regEx = new RegExp("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}")
 
     if (regEx.test(email)) {
         // si cumple con los parametros de la regex
-        resultado = true        
+        resultado = true
     }
 
     // console.log(resultado);
@@ -108,7 +108,7 @@ function validarEmail(email) {
 function validarPassword(password) {
     let resultado = false
     console.log(password)
-    
+
     // let regExp = /^(?=.*\d)(?=.*[a-z]).{6,20}$/ // acepta minúsculas, caracteres especiales y números
     let regExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/ // acepta minúsculas, mayúsculas, caracteres especiales y números
 
@@ -147,7 +147,7 @@ function validarTerminos(verificacion) {
 /*                      [4] FUNCION: escuchamos el submit                     */
 /* -------------------------------------------------------------------------- */
 // en el evento submit nos remitimos a chequear nuestro estado de errores
-formulario.addEventListener("submit", (evento) => { 
+formulario.addEventListener("submit", (evento) => {
     // prevenimos el default para manejar nososotro el comportamiento
     evento.preventDefault()
 
@@ -157,7 +157,7 @@ formulario.addEventListener("submit", (evento) => {
         estadoErroresOK.rol &&
         estadoErroresOK.terminos
     ) {
-        
+
         alert("Tu formulario fue completado con éxito")
         navegarPaginaExito()
     }
@@ -180,7 +180,13 @@ formulario.addEventListener("submit", (evento) => {
 
 function navegarPaginaExito() {
     //  desarrollar la funcion aqui
-    
+    const boton = document.querySelector("button")
+    boton.disabled = true
+    boton.textContent = "...cargando"
 
+    localStorage.setItem('user', JSON.stringify(estadoUsuario));
 
+    setTimeout(()=> {
+        location.replace("./usuario.html")
+    }, 4500)
 }

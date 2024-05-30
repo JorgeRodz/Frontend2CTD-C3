@@ -6,6 +6,13 @@
 /* -------------------------------------------------------------------------- */
 /*           [6] FUNCION: Escuchamos el evento de carga de la página          */
 /* -------------------------------------------------------------------------- */
+window.addEventListener("load", () => {
+    const usuario = recuperarDataDelStorage()
+
+    renderizarElementos(usuario)
+
+    botonCerrarSesion();
+})
 
 
 /* -------------------------------------------------------------------------- */
@@ -13,16 +20,24 @@
 /* -------------------------------------------------------------------------- */
 function recuperarDataDelStorage() {
     // buscamos la data almacenada en nuestro bolsillo (localStorage)
-    
+    const jsonDelUsuario = localStorage.getItem("user")
+    console.log(jsonDelUsuario)
+
+    const datosParseados = JSON.parse(jsonDelUsuario);
+    return datosParseados
 }
 
 /* -------------------------------------------------------------------------- */
 /*                [8] FUNCION: Renderizamos la info en pantalla               */
 /* -------------------------------------------------------------------------- */
 function renderizarElementos(objetoJS) {
-    
+    console.log(objetoJS)
 
-    
+    const emailH4 = document.querySelector('#email')
+    const perfilParagraph = document.querySelector('#perfil')
+
+    emailH4.textContent = objetoJS.email
+    perfilParagraph.textContent = objetoJS.rol
 }
 
 
@@ -49,5 +64,17 @@ function renderizarElementos(objetoJS) {
 
 function botonCerrarSesion() {
     //    👇 desarrollar la función
+    const perfilParagraphTag = document.querySelector('#perfil');
+    const botonCerrarSesionString = '<button id="botonCerrarSesion" style="padding: 5px 20px; background-color: rgba(255, 0, 0, 0.2); color: red; margin: 20px; border: none; cursor: pointer;"> Cerrar sesión </button>'
+    perfilParagraphTag.insertAdjacentHTML("afterend", botonCerrarSesionString);
 
+    const botonCerrarSesion = document.getElementById('botonCerrarSesion');
+    botonCerrarSesion.addEventListener('click', () => {
+        const confirmacion = confirm('¿Seguro desea cerrar sesión?');
+
+        if (confirmacion) {
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+    });
 }
