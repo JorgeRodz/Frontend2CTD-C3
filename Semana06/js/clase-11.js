@@ -1,6 +1,6 @@
 let listadoComentarios = [{
         postId: 1,
-        id: 1, 
+        id: 1,
         name: 'id labore ex et quam laborum',
         email: 'Eliseo@gardner.biz',
         body: 'laudantium enim quasi est quidem magnam voluptate …utem quasi\nreiciendis et nam sapiente accusantium'
@@ -71,30 +71,29 @@ let listadoComentarios = [{
 // Tenemos un listado de comentarios como punto de partida. Esto van a funcionar como registros en una base de datos.
 // Vamos a simular conectarnos con una API para recuperar los comentarios y verlos en pantalla.
 
-
 /* -------------------------------------------------------------------------- */
 /*                      [1] FUNCION: Escuchamos el click                      */
 /* -------------------------------------------------------------------------- */
 const btn = document.querySelector("button")
 // console.log(btn);
 
-btn.addEventListener("click", () => { 
-    console.log("Click activado"); 
+btn.addEventListener("click", () => {
+    console.log("Click activado");
+
+    mostrarCargando();
 
     var endpoint = "www.google.com" // la url donde voy a consultar el recurso
     // var endpoint = "www.yahoo.com" // la url INCORRECTA donde voy a consultar el recurso
 
     consultaAsincrona(endpoint)
     .then( (respuesta) => {
-        console.log(respuesta)
+        console.log(respuesta);
+        renderizarElementos(respuesta);
     })
     .catch( error => {
         console.log(error);
     })
-
-
 })
-
 
 /* -------------------------------------------------------------------------- */
 /*                      [2] FUNCION: creamos una promesa                      */
@@ -121,11 +120,7 @@ function consultaAsincrona(url) {
             }
         }, 2500);
     })
-
 }
-
-
-
 
 /* ----------------------------- Mesa de trabajo ---------------------------- */
 /* -------------------------------------------------------------------------- */
@@ -142,5 +137,26 @@ function consultaAsincrona(url) {
 // Muchos éxitos!
 
 function renderizarElementos(listado){
+    const comentariosDiv = document.querySelector('.comentarios');
+    comentariosDiv.innerHTML = '';
 
+    listado.forEach(comentario => {
+        const comentarioDiv = document.createElement('div');
+        comentarioDiv.classList.add('comentario');
+
+        const emailH4 = document.createElement('h4');
+        emailH4.textContent = comentario.email;
+
+        const bodyP = document.createElement('p');
+        bodyP.textContent = comentario.body;
+
+        comentarioDiv.appendChild(emailH4);
+        comentarioDiv.appendChild(bodyP);
+        comentariosDiv.appendChild(comentarioDiv);
+    });
+}
+
+function mostrarCargando() {
+    const comentariosDiv = document.querySelector('.comentarios');
+    comentariosDiv.innerHTML = '<p>Cargando comentarios...</p>';
 }
